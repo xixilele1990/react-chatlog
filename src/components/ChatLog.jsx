@@ -5,15 +5,20 @@ import ChatEntry from './ChatEntry';
 
 const ChatLog = ({ entries, onHandleLike }) => {
   const messageList = entries.map((message) => {
+    const handleLikeClick =
+      typeof onHandleLike === 'function'
+        ? () => onHandleLike(message.id)
+        : undefined;
+
     return (
       <li key={message.id}>
-      <ChatEntry
-        sender={message.sender}
-        body={message.body}
-        timeStamp={message.timeStamp}
-        liked={message.liked}
-        onHandleLike = {() => onHandleLike(message.id)}
-      />
+        <ChatEntry
+          sender={message.sender}
+          body={message.body}
+          timeStamp={message.timeStamp}
+          liked={message.liked}
+          onHandleLike={handleLikeClick}
+        />
       </li>
     );
   });
